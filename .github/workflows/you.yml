@@ -13,3 +13,5 @@ jobs:
       - name: Echo the message
         run: |
           echo "Hola drogo"
+      - name: Listar
+        run: ls -l
