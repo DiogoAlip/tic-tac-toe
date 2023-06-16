@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`square.jsx Square should match with the snapshot 1`] = `
+<div>
+  <div
+    class="square "
+    data-testid="Square-id"
+  />
+</div>
+`;

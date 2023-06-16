@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WinnerModal.jsx WinnerModal should return an event 1`] = `
+<div>
+  <section
+    class="winner"
+  >
+    <div
+      class="text"
+    >
+      <h2>
+        Gano
+      </h2>
+      <header
+        class="win"
+      >
+        <div
+          class="square "
+          data-testid="Square-id"
+        >
+          <img
+            alt=""
+            class="table_element"
+            src="true"
+          />
+        </div>
+      </header>
+      <footer>
+        <button>
+          Empezar de nuevo
+        </button>
+      </footer>
+    </div>
+  </section>
+</div>
+`;

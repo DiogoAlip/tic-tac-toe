@@ -17,8 +17,9 @@ describe('WinnerModal.jsx',()=>{
         expect(screen.getByTestId('Square-id')).toBeTruthy()
 
         expect(container.getElementsByClassName('win')).toBeTruthy()
-
+        
         expect(screen.getByText('Empezar de nuevo')).toBeTruthy()
+
     })
 
     test('should return a component in lost state',()=>{
