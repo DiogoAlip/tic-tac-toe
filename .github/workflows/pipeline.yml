@@ -27,8 +27,12 @@ jobs:
                 run: yarn test
 
             -   name: Deploy Netlify
-                uses: danakim/gh-action-deploy-netlify@master
+                uses: South-Paw/action-netlify-deploy@v1.2.0
                 with:
-                  AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-                  SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-                  DEPLOY_PROD: true
+                    github-token: ${{ secrets.GITHUB_TOKEN }}
+                    netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+                    netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+                    build-dir: './build'
+                    draft: true
+                    comment-on-commit: true
+    
