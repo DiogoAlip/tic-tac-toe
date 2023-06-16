@@ -5,6 +5,8 @@ on:
         branches:
             - main
 
+permissions: write-all
+
 jobs:
     deploy:
         runs-on: ubuntu-22.04
@@ -16,15 +18,15 @@ jobs:
             -   uses: actions/setup-node@v3
                 with:
                     node-version: 18
+
+            -   name: Test
+                run: yarn test
             
             -   name: Install dependencies
                 run: yarn install --no-audit --no-found --no-optional
 
             -   name: Build
                 run: yarn build
-
-            -   name: Test
-                run: yarn test
 
             -   name: Deploy Netlify
                 uses: South-Paw/action-netlify-deploy@v1.2.0
