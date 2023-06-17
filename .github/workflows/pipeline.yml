@@ -19,7 +19,6 @@ jobs:
                 with:
                     node-version: 18
 
-            
             -   name: Install dependencies
                 run: yarn install --no-audit --no-found --no-optional
 
@@ -28,6 +27,12 @@ jobs:
 
             -   name: Test
                 run: yarn test
+
+            -   name: Lint
+                run: yarn lint
+
+            -   name: Format
+                run: yarn format
 
             -   name: Deploy Netlify
                 uses: South-Paw/action-netlify-deploy@v1.2.0
