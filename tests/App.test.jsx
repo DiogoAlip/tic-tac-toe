@@ -1,4 +1,3 @@
-describe('App.jsx',()=>{
-    test('',()=>{
-    })
-})
+describe("App.jsx", () => {
+	test("", () => {});
+});

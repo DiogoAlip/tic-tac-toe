@@ -8,9 +8,34 @@ on:
 permissions: write-all
 
 jobs:
-    deploy:
+    avoid_reduncy:
         runs-on: ubuntu-22.04
-        steps: 
+        steps:
+            -   name: Cancel Previus Redundant Builds
+                uses: styfle/cancel-workflow-action@0.9.1
+                with:
+                        access_token: ${{ github.token }}
+
+    lint:
+        runs-on: ubuntu-22.04
+        steps:
+            -   uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+            
+            -   uses: actions/setup-node@v3
+                with:
+                    node-version: 18
+
+            -   name: Install dependencies
+                run: yarn install --no-audit --no-found --no-optional
+
+            -   name: Lint
+                run: yarn lint
+
+    build:
+        runs-on: ubuntu-22.04
+        steps:
             -   uses: actions/checkout@v3
                 with:
                     fetch-depth: 0
@@ -25,11 +50,48 @@ jobs:
             -   name: Build
                 run: yarn build
 
+            -   uses: actions/upload-artifact@v2
+                with:
+                    name: dist
+                    path: dist
+
+    test:
+        needs: [lint, build]
+        runs-on: ubuntu-22.04
+        steps:
+            -   uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+            
+            -   uses: actions/setup-node@v3
+                with:
+                    node-version: 18
+
+            -   name: Install dependencies
+                run: yarn install --no-audit --no-found --no-optional
+
+            -   uses: actions/download-artifact@v2
+                with:
+                    name: dist
+                    path: dist
+            
             -   name: Test
                 run: yarn test
+            
+    deploy:
+        needs: [test]
+        runs-on: ubuntu-22.04
+        steps: 
+            -   uses: actions/checkout@v3
+                with:
+                    fetch-depth: 0
+            
+            -   uses: actions/setup-node@v3
+                with:
+                    node-version: 18
 
-            -   name: Lint
-                run: yarn lint
+            -   name: Install dependencies
+                run: yarn install --no-audit --no-found --no-optional
 
             -   name: Format
                 run: yarn format

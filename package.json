@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "rome format --write ./src",
-    "lint": "rome check --apply ./src",
+    "format": "rome format .",
+    "format:fix": "rome format --write .",
+    "lint": "rome check .",
+    "lint:fix": "rome check --apply .",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
