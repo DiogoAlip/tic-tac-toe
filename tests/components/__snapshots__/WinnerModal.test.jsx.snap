@@ -26,7 +26,9 @@ exports[`WinnerModal.jsx WinnerModal should return an event 1`] = `
         </div>
       </header>
       <footer>
-        <button>
+        <button
+          type="button"
+        >
           Empezar de nuevo
         </button>
       </footer>
