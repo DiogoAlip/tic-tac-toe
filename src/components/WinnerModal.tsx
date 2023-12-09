@@ -3,25 +3,25 @@ export const WinnerModal = ({
   winner,
   resetGame,
 }: {
-  winner: null | React.FC<React.SVGProps<SVGSVGElement>>;
-  resetGame: () => void;
+  winner: null | boolean | React.FC<React.SVGProps<SVGSVGElement>>;
+  resetGame?: () => void;
 }) => {
   if (winner == null) return null;
 
-  const TextWinnner = winner === null ? "Empate" : "Gano";
+  const TextWinnner = winner === false ? "Empate" : "Gano";
 
   return (
     <section className="winner">
       <div className="text">
         <h2>{TextWinnner}</h2>
 
-        <header className="win">
-          {winner && (
+        {winner && (
+          <header className="win">
             <Square>
               <img className="table_element" src={winner.toString()} alt="" />
             </Square>
-          )}
-        </header>
+          </header>
+        )}
 
         <footer>
           <button type="button" onClick={resetGame}>

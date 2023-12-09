@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
+    "types": ["node", "jest"],
     "target": "es5",
     "lib": ["es6", "dom"],
     "sourceMap": true,
@@ -13,8 +14,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "typeRoots": ["./src/@types/assets"]
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",

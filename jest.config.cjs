@@ -1,5 +1,7 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  testEnvironment: "jest-environment-jsdom",
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
   setupFiles: ["./jest.setup.js"],
   moduleNameMapper: {
     "^.+\\.svg$": "jest-svg-transformer",
