@@ -7,10 +7,14 @@ import exit from "./assets/xmark-solid.svg";
 
 export function App() {
   const [turnx, setTurnx] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
-    TURNS.x
+    (window.localStorage.getItem("simbolX") as unknown as React.FC<
+      React.SVGProps<SVGSVGElement>
+    >) ?? TURNS.x
   );
   const [turno, setTurno] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
-    TURNS.o
+    (window.localStorage.getItem("simbolO") as unknown as React.FC<
+      React.SVGProps<SVGSVGElement>
+    >) ?? TURNS.o
   );
 
   const [board, setBoard] = useState<
@@ -35,11 +39,15 @@ export function App() {
   const resetGame = () => {
     setBoard(Array(9).fill(null));
 
-    setTurn(turnx);
+    /* setTurnx(TURNS.x);
+    setTurno(TURNS.o); */
+    setTurn(turnx); //setTurn(TURNS.o)
     setWinner(null);
 
     window.localStorage.removeItem("board");
     window.localStorage.removeItem("turn");
+    window.localStorage.removeItem("simbolX");
+    window.localStorage.removeItem("simbolO");
   };
 
   const checkEndGame = (newBoard: React.FC<React.SVGProps<SVGSVGElement>>[]) =>
@@ -79,18 +87,21 @@ export function App() {
 
   const simbolChanger = (number: number) => {
     setBoard(
-      board.map((element) => {
-        if (element === turn) {
-          return marks[number];
-        } else {
-          return element;
-        }
-      })
+      board.map((element) => (element === turn ? marks[number] : element))
     );
+
     if (turn === turnx) {
       setTurnx(marks[number]);
+      window.localStorage.setItem(
+        "simbolX",
+        marks[number] as unknown as string
+      );
     } else {
       setTurno(marks[number]);
+      window.localStorage.setItem(
+        "simbolO",
+        marks[number] as unknown as string
+      );
     }
     setTurn(marks[number]);
     activateModal();
