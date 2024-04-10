@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  children?: JSX.Element;
+  children?: JSX.Element | number;
   isSelected?: boolean;
   updateBoard?: () => void;
   index?: number;

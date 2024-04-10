@@ -6,6 +6,10 @@ import { WinnerModal } from "./components/WinnerModal";
 import exit from "./assets/xmark-solid.svg";
 
 export function App() {
+  const [victoriesCount, setVictoriesCount] = useState({
+    x: 0,
+    o: 0,
+  });
   const [turnx, setTurnx] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
     (window.localStorage.getItem("simbolX") as unknown as React.FC<
       React.SVGProps<SVGSVGElement>
@@ -77,6 +81,9 @@ export function App() {
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
       setWinner(newWinner);
+      if (newWinner === TURNS.x)
+        setVictoriesCount({ ...victoriesCount, x: victoriesCount.x + 1 });
+      else setVictoriesCount({ ...victoriesCount, o: victoriesCount.o + 1 });
     }
   };
 
@@ -109,9 +116,16 @@ export function App() {
 
   return (
     <div className="board">
-      <button type="button" onClick={activateModal}>
-        Super Mishi
-      </button>
+      <div className="buttons_container">
+        <button type="button" onClick={activateModal}>
+          Super Mishi
+        </button>
+        {/* rome-ignore lint/a11y/useButtonType: <explanation> */}
+        <button onClick={resetGame}>Empezar de nuevo</button>
+        <button type="button" onClick={() => setVictoriesCount({ x: 0, o: 0 })}>
+          Restart Scords
+        </button>
+      </div>
       {modal && (
         <div
           className="character-selector_container"
@@ -141,8 +155,6 @@ export function App() {
           </section>
         </div>
       )}
-      {/* rome-ignore lint/a11y/useButtonType: <explanation> */}
-      <button onClick={resetGame}>Empezar de nuevo</button>
       <section className="game">
         {board.map((_, index) => {
           return (
@@ -162,6 +174,7 @@ export function App() {
         })}
       </section>
       <section className="turn">
+        <Square>{victoriesCount.x}</Square>
         <Square isSelected={turn === turnx} aria-label="simbolO">
           <img
             className="table_element"
@@ -176,6 +189,7 @@ export function App() {
             alt=""
           />
         </Square>
+        <Square>{victoriesCount.o}</Square>
       </section>
 
       <WinnerModal winner={winner} resetGame={resetGame} />
