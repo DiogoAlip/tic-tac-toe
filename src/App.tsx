@@ -123,7 +123,7 @@ export function App() {
         {/* rome-ignore lint/a11y/useButtonType: <explanation> */}
         <button onClick={resetGame}>Empezar de nuevo</button>
         <button type="button" onClick={() => setVictoriesCount({ x: 0, o: 0 })}>
-          Restart Scords
+          Reiniciar Puntuaccion
         </button>
       </div>
       {modal && (
@@ -174,7 +174,7 @@ export function App() {
         })}
       </section>
       <section className="turn">
-        <Square>{victoriesCount.x}</Square>
+        <Square>{victoriesCount.x === 0 ? undefined : victoriesCount.x}</Square>
         <Square isSelected={turn === turnx} aria-label="simbolO">
           <img
             className="table_element"
@@ -189,7 +189,7 @@ export function App() {
             alt=""
           />
         </Square>
-        <Square>{victoriesCount.o}</Square>
+        <Square>{victoriesCount.o === 0 ? undefined : victoriesCount.o}</Square>
       </section>
 
       <WinnerModal winner={winner} resetGame={resetGame} />
