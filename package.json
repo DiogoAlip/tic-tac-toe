@@ -43,6 +43,7 @@
     "jest-canvas-mock": "^2.4.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-svg-transformer": "^1.0.0",
+    "oxlint": "^0.3.1",
     "prettier": "^2.8.8",
     "react-test-renderer": "^18.2.0",
     "rome": "12.1.3",
