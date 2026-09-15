@@ -5,99 +5,90 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions: write-all
 
 jobs:
-  avoid_reduncy:
-    runs-on: ubuntu-26.04
-    steps:
-      - name: Cancel Previus Redundant Builds
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
-
   lint:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install --no-audit --no-found --no-optional
+        run: npm ci
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
+
+      - name: Format Check
+        run: npm run format
 
   build:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install --no-audit --no-found --no-optional
+        run: npm ci
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
-      - uses: actions/upload-artifact@v2
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
 
   test:
     needs: [lint, build]
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn install --no-audit --no-found --no-optional
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: dist
-          path: dist
+        run: npm ci
 
       - name: Test
-        run: yarn test
+        run: npm test
 
   deploy:
     needs: [test]
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: yarn install --no-audit --no-found --no-optional
-
-      - name: Build
-        run: yarn build
-
-      - name: Format
-        run: yarn format
+          name: dist
+          path: dist
 
       - name: Deploy Netlify
         uses: South-Paw/action-netlify-deploy@v1.2.0
