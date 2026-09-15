@@ -13,12 +13,12 @@ export function App() {
   const [turnx, setTurnx] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
     (window.localStorage.getItem("simbolX") as unknown as React.FC<
       React.SVGProps<SVGSVGElement>
-    >) ?? TURNS.x
+    >) ?? TURNS.x,
   );
   const [turno, setTurno] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
     (window.localStorage.getItem("simbolO") as unknown as React.FC<
       React.SVGProps<SVGSVGElement>
-    >) ?? TURNS.o
+    >) ?? TURNS.o,
   );
 
   const [board, setBoard] = useState<
@@ -33,7 +33,7 @@ export function App() {
   const [turn, setTurn] = useState<React.FC<React.SVGProps<SVGSVGElement>>>(
     (window.localStorage.getItem("turn") as unknown as React.FC<
       React.SVGProps<SVGSVGElement>
-    >) ?? turnx
+    >) ?? turnx,
   );
 
   const [winner, setWinner] = useState<
@@ -94,20 +94,20 @@ export function App() {
 
   const simbolChanger = (number: number) => {
     setBoard(
-      board.map((element) => (element === turn ? marks[number] : element))
+      board.map((element) => (element === turn ? marks[number] : element)),
     );
 
     if (turn === turnx) {
       setTurnx(marks[number]);
       window.localStorage.setItem(
         "simbolX",
-        marks[number] as unknown as string
+        marks[number] as unknown as string,
       );
     } else {
       setTurno(marks[number]);
       window.localStorage.setItem(
         "simbolO",
-        marks[number] as unknown as string
+        marks[number] as unknown as string,
       );
     }
     setTurn(marks[number]);

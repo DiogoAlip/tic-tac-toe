@@ -5,14 +5,13 @@ on:
     branches:
       - main
 
-
 jobs:
   hello_world:
     runs-on: ubuntu-22.04
     steps:
       - name: Echo the message
         run: |
-          echo "Hola drogo"
+          echo "Hola mundo"
       - name: Listar
         run: ls -l
       - name: Mostrar_Fecha

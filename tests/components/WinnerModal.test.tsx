@@ -40,7 +40,7 @@ describe("WinnerModal.jsx", () => {
           variable = true;
         }}
         winner={!variable}
-      />
+      />,
     );
     expect(container).toMatchSnapshot();
     fireEvent.click(screen.getByText("Empezar de nuevo"));

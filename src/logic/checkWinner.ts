@@ -1,7 +1,7 @@
 import { WINNER_COMBOS } from "../constans";
 import confetti from "canvas-confetti";
 export const checkWinner = (
-  boardToCheck: Array<React.FC<React.SVGProps<SVGSVGElement>>>
+  boardToCheck: Array<React.FC<React.SVGProps<SVGSVGElement>>>,
 ) => {
   for (const combo of WINNER_COMBOS) {
     const [a, b, c] = combo;

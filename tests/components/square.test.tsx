@@ -14,7 +14,7 @@ describe("square.jsx", () => {
     render(
       <Square>
         <p>{string}</p>
-      </Square>
+      </Square>,
     );
     expect(screen.getByText(string).innerHTML).toBe(string);
 
@@ -34,7 +34,7 @@ describe("square.jsx", () => {
     const selectIsTrue = true;
     const name = "square is-selected";
 
-    const { container } = render(<Square isSelected={true} />);
+    const { container } = render(<Square isSelected={selectIsTrue} />);
     expect(screen.getByTestId("Square-id")).toBeTruthy();
     expect(container.getElementsByClassName(`${name}`)).toBeTruthy();
   });
@@ -46,7 +46,7 @@ describe("square.jsx", () => {
         updateBoard={() => {
           variable = true;
         }}
-      />
+      />,
     );
     fireEvent.click(screen.getByTestId("Square-id"));
     expect(variable).toBeTruthy();

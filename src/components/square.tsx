@@ -7,7 +7,12 @@ type Props = {
   index?: number;
 };
 
-export const Square = ({ children, isSelected, updateBoard, index }: Props) => {
+export const Square = ({
+  children,
+  isSelected,
+  updateBoard,
+  index: _index,
+}: Props) => {
   const className = `square ${isSelected ? "is-selected" : ""}`;
   return (
     <React.Fragment>
