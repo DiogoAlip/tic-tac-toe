@@ -9,7 +9,7 @@ permissions: write-all
 
 jobs:
   avoid_reduncy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Cancel Previus Redundant Builds
         uses: styfle/cancel-workflow-action@0.9.1
@@ -17,7 +17,7 @@ jobs:
           access_token: ${{ github.token }}
 
   lint:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,7 +25,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --no-audit --no-found --no-optional
@@ -34,7 +34,7 @@ jobs:
         run: yarn lint
 
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -42,7 +42,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --no-audit --no-found --no-optional
@@ -57,7 +57,7 @@ jobs:
 
   test:
     needs: [lint, build]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -65,7 +65,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --no-audit --no-found --no-optional
@@ -80,7 +80,7 @@ jobs:
 
   deploy:
     needs: [test]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -88,7 +88,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install dependencies
         run: yarn install --no-audit --no-found --no-optional
